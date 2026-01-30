@@ -353,14 +353,7 @@ Assistant: {answer}
     conversation_update, _ = call_llm(convo_prompt)
     
     # ===== SAVE TO CACHE =====
-    save_to_cache(
-        user_query,
-        state["user_id"],
-        state.get("profile_memory") or "",
-        state.get("conversation_memory") or "",
-        state.get("observation"),
-        answer
-    )
+    semantic_cache_write(user_query,state["user_id"],answer)
 
     return {
         "final_answer": answer,
@@ -528,5 +521,6 @@ if __name__ == "__main__":
             continue
             
         run_agent(q, graph, store, thread_id, user_id)
+
 
 
